@@ -1,0 +1,12 @@
+{
+	"Name": "CC Bot",
+	"ID": "ccbot",
+	"Author": "WingFrost",
+	"Description": "Automation at its best!",
+	"ModVersion": 1.00,
+	"GameVersion": 2.043,
+	"Date": "16/01/2022",
+	"Dependencies": ["CCSE", "ccutils"],
+	"Disabled": 1,
+	"AllowSteamAchievs": 1
+}
