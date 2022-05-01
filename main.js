@@ -54,6 +54,7 @@ CCBot.launch = function(){
             clickSpecialCookie: false,
             clickLump: false,
             clickFortuneNewsTicker: false,
+            buyInterval: 1000,
             buyBuildings: false,
             buyUpgrades: false,
             buyBuildingLevel: false,
@@ -80,7 +81,11 @@ CCBot.launch = function(){
     }
     
     CCBot.getClickInterval = function() {
-        return CCBot.config["clickInterval"] + "ms";
+        return CCBot.config.clickInterval + "ms";
+    }
+
+    CCBot.getBuyInterval = function() {
+        return CCBot.config.buyInterval + "ms";
     }
     
     CCBot.updateSlider = function(configId, sliderId, rightText) {
@@ -96,6 +101,7 @@ CCBot.launch = function(){
         var clickSpecialCookieText = "Click Special Cookie";
         var clickLumpText = "Harvest Sugar Lump";
         var clickFortuneNewsTickerText = "Click the News Ticker";
+        var buyIntervalText = "Buying Interval";
         var buyBuildingsText = "Buy Buildings";
         var buyUpgradesText = "Buy Upgrades";
         
@@ -147,6 +153,16 @@ CCBot.launch = function(){
                 description = "Click the News Ticker when a fortune appears."
             )
             + menu.Header("Buying")
+            + CCUtils.menu.slider(
+                sliderId = "buyIntervalSlider",
+                leftText = buyIntervalText,
+                rightText = CCBot.getBuyInterval(),
+                value = function(){return CCBot.config.buyInterval;},
+                minValue = 50,
+                maxValue = 5000,
+                step = 50,
+                callback = "CCBot.updateSlider('buyInterval', 'buyIntervalSlider', CCBot.getBuyInterval());"
+            )
             + CCUtils.menu.toggleButton(
                 config = CCBot.config,
                 configId = "buyBuildings",
@@ -179,24 +195,23 @@ CCBot.launch = function(){
         var slowerInterval = 1 * 60 * 1000; //1min
 
         CCBot.clickingLoop();
-        CCBot.buyingLoop(fasterInterval);
+        CCBot.buyingLoop();
     }
     
     CCBot.clickingLoop = function() {
         CCBot.clickBigCookie();
         CCBot.clickSpecialCookie();
         CCBot.clickLump();
-        CCBot.clickFortuneTicker();
+        CCBot.clickFortuneNewsTicker();
         
         setTimeout(CCBot.clickingLoop, CCBot.config.clickInterval);
     }
 
-    CCBot.buyingLoop = function(interval) {
+    CCBot.buyingLoop = function() {
         CCBot.spendCookies();
         //CCBot.spendLumps();
 
-        setTimeout(CCBot.clickingLoop, interval);
-
+        setTimeout(CCBot.buyingLoop, CCBot.config.buyInterval);
     }
     
     // ======================================
@@ -253,18 +268,23 @@ CCBot.launch = function(){
                 } 
             }
         }
+        /*if (bestObject) {
+            console.log(bestObject);
+        }*/
 
         CCBot.buyObject(bestObject);
     }
 
     CCBot.buyObject = function(object) {
-        if (object) {
+        if (object && object.price <= Game.cookies) {
             if (object.type == "building") {
                 CCUtils.buyBuilding(object.object);
             }
             else if (object.type == "upgrade") {
                 CCUtils.buyUpgrade(object.object);
             }
+
+            console.log("Bought " + object.type + ": " + object.name);
         }
     }
 
