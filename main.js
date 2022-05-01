@@ -179,15 +179,21 @@ CCBot.launch = function(){
     }
     
     CCBot.clickSpecialCookie = function() {
-        
+        if (CCBot.config.clickSpecialCookie) {
+            CCUtils.clickAllSpecialCookies();
+        }
     }
     
     CCBot.clickLump = function() {
-        
+        if (CCBot.config.clickLump) {
+            CCUtils.clickLump();
+        }
     }
     
     CCBot.clickFortuneTicker = function() {
-        
+        if (CCBot.config.clickLump) {
+            CCUtils.clickFortuneNews();
+        }
     }
     
     // ======================================
