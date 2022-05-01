@@ -3,7 +3,7 @@
 	"ID": "ccbot",
 	"Author": "WingFrost",
 	"Description": "Automation at its best!",
-	"ModVersion": 1.00,
+	"ModVersion": 1.1,
 	"GameVersion": 2.043,
 	"Date": "16/01/2022",
 	"Dependencies": ["CCSE", "ccutils"],

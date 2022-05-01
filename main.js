@@ -96,6 +96,8 @@ CCBot.launch = function(){
         var clickSpecialCookieText = "Click Special Cookie";
         var clickLumpText = "Harvest Sugar Lump";
         var clickFortuneTickerText = "Click the News Ticker";
+        var buyBuildingsText = "Buy Buildings";
+        var buyUpgradesText = "Buy Upgrades";
         
         var str = menu.Header("Clicking")
             + CCUtils.menu.slider(
@@ -144,6 +146,25 @@ CCBot.launch = function(){
                 callback = "CCBot.updateToggleButton",
                 description = "Click the News Ticker when a fortune appears."
             )
+            + menu.Header("Buying")
+            + CCUtils.menu.toggleButton(
+                config = CCBot.config,
+                configId = "buyBuildings",
+                buttonId = "buyBuildingsButton",
+                textOn = CCUtils.menu.buttonTextOn(buyBuildingsText),
+                textOff = CCUtils.menu.buttonTextOff(buyBuildingsText),
+                callback = "CCBot.updateToggleButton",
+                description = "Buy cheapest building."
+            )
+            + CCUtils.menu.toggleButton(
+                config = CCBot.config,
+                configId = "buyUpgrades",
+                buttonId = "buyUpgradesButton",
+                textOn = CCUtils.menu.buttonTextOn(buyUpgradesText),
+                textOff = CCUtils.menu.buttonTextOff(buyUpgradesText),
+                callback = "CCBot.updateToggleButton",
+                description = "Buy cheapest upgrade."
+            )
         ;
         
         return str;
@@ -158,6 +179,7 @@ CCBot.launch = function(){
         var slowerInterval = 1 * 60 * 1000; //1min
 
         CCBot.clickingLoop();
+        CCBot.buyingLoop(fasterInterval);
     }
     
     CCBot.clickingLoop = function() {
@@ -167,6 +189,14 @@ CCBot.launch = function(){
         CCBot.clickFortuneTicker();
         
         setTimeout(CCBot.clickingLoop, CCBot.config.clickInterval);
+    }
+
+    CCBot.buyingLoop = function(interval) {
+        CCBot.spendCookies();
+        //CCBot.spendLumps();
+
+        setTimeout(CCBot.clickingLoop, interval);
+
     }
     
     // ======================================
@@ -199,7 +229,10 @@ CCBot.launch = function(){
     // ======================================
     // Buying Functions
     // ======================================
-	
+	CCBot.spendCookies = function() {
+        //if ()
+    }
+
 	if(CCSE.ConfirmGameVersion(CCBot.name, CCBot.version, CCBot.GameVersion)) Game.registerMod(CCBot.name, CCBot);
 }
 
