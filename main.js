@@ -53,7 +53,7 @@ CCBot.launch = function(){
             clickBigCookie: false,
             clickSpecialCookie: false,
             clickLump: false,
-            clickFortuneTicker: false,
+            clickFortuneNewsTicker: false,
             buyBuildings: false,
             buyUpgrades: false,
             buyBuildingLevel: false,
@@ -95,7 +95,7 @@ CCBot.launch = function(){
         var clickBigCookieText = "Click Big Cookie";
         var clickSpecialCookieText = "Click Special Cookie";
         var clickLumpText = "Harvest Sugar Lump";
-        var clickFortuneTickerText = "Click the News Ticker";
+        var clickFortuneNewsTickerText = "Click the News Ticker";
         var buyBuildingsText = "Buy Buildings";
         var buyUpgradesText = "Buy Upgrades";
         
@@ -139,10 +139,10 @@ CCBot.launch = function(){
             )
             + CCUtils.menu.toggleButton(
                 config = CCBot.config,
-                configId = "clickFortuneTicker",
-                buttonId = "clickFortuneTickerButton",
-                textOn = CCUtils.menu.buttonTextOn(clickFortuneTickerText),
-                textOff = CCUtils.menu.buttonTextOff(clickFortuneTickerText),
+                configId = "clickFortuneNewsTicker",
+                buttonId = "clickFortuneNewsTickerButton",
+                textOn = CCUtils.menu.buttonTextOn(clickFortuneNewsTickerText),
+                textOff = CCUtils.menu.buttonTextOff(clickFortuneNewsTickerText),
                 callback = "CCBot.updateToggleButton",
                 description = "Click the News Ticker when a fortune appears."
             )
@@ -220,9 +220,9 @@ CCBot.launch = function(){
         }
     }
     
-    CCBot.clickFortuneTicker = function() {
-        if (CCBot.config.clickLump) {
-            CCUtils.clickFortuneNews();
+    CCBot.clickFortuneNewsTicker = function() {
+        if (CCBot.config.clickFortuneNewsTicker) {
+            CCUtils.clickFortuneNewsTicker();
         }
     }
     
@@ -230,7 +230,42 @@ CCBot.launch = function(){
     // Buying Functions
     // ======================================
 	CCBot.spendCookies = function() {
-        //if ()
+        var bestObjectsToBuy = [];
+
+        if (CCBot.config.buyBuildings) {
+            bestBuilding = CCUtils.getCheapestBuilding();
+            bestObjectsToBuy.push(bestBuilding);
+        }
+
+        if (CCBot.config.buyUpgrades) {
+            bestUpgrade = CCUtils.getCheapestUpgrade();
+            bestObjectsToBuy.push(bestUpgrade);
+        }
+
+        var bestObject = null;
+        for (var i = 0; i < bestObjectsToBuy.length; i++) {
+            if (!bestObject) {
+                bestObject = bestObjectsToBuy[i];
+            }
+            else {
+                if (bestObjectsToBuy[i].score < bestObject.score) {
+                    bestObject = bestObjectsToBuy[i];
+                } 
+            }
+        }
+
+        CCBot.buyObject(bestObject);
+    }
+
+    CCBot.buyObject = function(object) {
+        if (object) {
+            if (object.type == "building") {
+                CCUtils.buyBuilding(object.object);
+            }
+            else if (object.type == "upgrade") {
+                CCUtils.buyUpgrade(object.object);
+            }
+        }
     }
 
 	if(CCSE.ConfirmGameVersion(CCBot.name, CCBot.version, CCBot.GameVersion)) Game.registerMod(CCBot.name, CCBot);
