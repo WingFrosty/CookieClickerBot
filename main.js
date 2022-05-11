@@ -276,15 +276,11 @@ CCBot.launch = function(){
     }
 
     CCBot.buyObject = function(object) {
-        if (object && object.price <= Game.cookies) {
-            if (object.type == "building") {
-                CCUtils.buyBuilding(object.object);
-            }
-            else if (object.type == "upgrade") {
-                CCUtils.buyUpgrade(object.object);
-            }
-
-            console.log("Bought " + object.type + ": " + object.name);
+        if (object.type == "building") {
+            CCUtils.buyBuilding(object.object);
+        }
+        else if (object.type == "upgrade") {
+            CCUtils.buyUpgrade(object.object);
         }
     }
 
