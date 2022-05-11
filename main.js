@@ -54,7 +54,7 @@ CCBot.launch = function(){
             clickSpecialCookie: false,
             clickLump: false,
             clickFortuneNewsTicker: false,
-            buyInterval: 900,
+            buyInterval: 1500,
             buyBuildings: false,
             buyUpgrades: false,
             buyBuildingLevel: false,
@@ -159,7 +159,7 @@ CCBot.launch = function(){
                 rightText = CCBot.getBuyInterval(),
                 value = function(){return CCBot.config.buyInterval;},
                 minValue = 60,
-                maxValue = 6000,
+                maxValue = 3000,
                 step = 60,
                 callback = "CCBot.updateSlider('buyInterval', 'buyIntervalSlider', CCBot.getBuyInterval());"
             )
