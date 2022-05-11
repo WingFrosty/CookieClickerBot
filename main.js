@@ -253,7 +253,7 @@ CCBot.launch = function(){
         }
 
         if (CCBot.config.buyUpgrades) {
-            bestUpgrade = CCUtils.getCheapestUpgrade();
+            bestUpgrade = CCUtils.getCheapestUpgrade(includeVaultedUpgrades=false);
             bestObjectsToBuy.push(bestUpgrade);
         }
 
