@@ -54,7 +54,7 @@ CCBot.launch = function(){
             clickSpecialCookie: false,
             clickLump: false,
             clickFortuneNewsTicker: false,
-            buyInterval: 1000,
+            buyInterval: 900,
             buyBuildings: false,
             buyUpgrades: false,
             buyBuildingLevel: false,
@@ -105,15 +105,15 @@ CCBot.launch = function(){
         var buyBuildingsText = "Buy Buildings";
         var buyUpgradesText = "Buy Upgrades";
         
-        var str = menu.Header("Clicking")
+        var str = menu.Header("Click")
             + CCUtils.menu.slider(
                 sliderId = "clickIntervalSlider",
                 leftText = clickIntervalText,
                 rightText = CCBot.getClickInterval(),
                 value = function(){return CCBot.config.clickInterval;},
                 minValue = 30,
-                maxValue = 1000,
-                step = 10,
+                maxValue = 900,
+                step = 30,
                 callback = "CCBot.updateSlider('clickInterval', 'clickIntervalSlider', CCBot.getClickInterval());"
             )
             + CCUtils.menu.toggleButton(
@@ -152,15 +152,15 @@ CCBot.launch = function(){
                 callback = "CCBot.updateToggleButton",
                 description = "Click the News Ticker when a fortune appears."
             )
-            + menu.Header("Buying")
+            + menu.Header("Buy")
             + CCUtils.menu.slider(
                 sliderId = "buyIntervalSlider",
                 leftText = buyIntervalText,
                 rightText = CCBot.getBuyInterval(),
                 value = function(){return CCBot.config.buyInterval;},
-                minValue = 50,
-                maxValue = 5000,
-                step = 50,
+                minValue = 60,
+                maxValue = 6000,
+                step = 60,
                 callback = "CCBot.updateSlider('buyInterval', 'buyIntervalSlider', CCBot.getBuyInterval());"
             )
             + CCUtils.menu.toggleButton(
