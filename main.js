@@ -268,18 +268,16 @@ CCBot.launch = function(){
                 } 
             }
         }
-        /*if (bestObject) {
-            console.log(bestObject);
-        }*/
+        CCBot.bestObject = bestObject;
 
         CCBot.buyObject(bestObject);
     }
 
     CCBot.buyObject = function(object) {
-        if (object.type == "building") {
+        if (object != null && object.type == "building") {
             CCUtils.buyBuilding(object.object);
         }
-        else if (object.type == "upgrade") {
+        else if (object != null && object.type == "upgrade") {
             CCUtils.buyUpgrade(object.object);
         }
     }
