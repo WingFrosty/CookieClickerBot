@@ -249,12 +249,16 @@ CCBot.launch = function(){
 
         if (CCBot.config.buyBuildings) {
             bestBuilding = CCUtils.getCheapestBuilding();
-            bestObjectsToBuy.push(bestBuilding);
+            if (bestBuilding != null) {
+                bestObjectsToBuy.push(bestBuilding);
+            }
         }
 
         if (CCBot.config.buyUpgrades) {
             bestUpgrade = CCUtils.getCheapestUpgrade(includeVaultedUpgrades=false);
-            bestObjectsToBuy.push(bestUpgrade);
+            if (bestUpgrade != null) {
+                bestObjectsToBuy.push(bestUpgrade);
+            }
         }
 
         var bestObject = null;
